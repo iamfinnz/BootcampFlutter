@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:sanberappflutter/Tugas/Tugas12/get_detail_data_scren.dart';
+import 'package:http/http.dart' as http;
+import 'package:sanberappflutter/Tugas/Tugas12/get_detail_screen.dart';
 
 class GetDataScreen extends StatefulWidget {
-  const GetDataScreen({Key? key}) : super(key: key);
+  const GetDataScreen({super.key});
 
   @override
   State<GetDataScreen> createState() => _GetDataScreenState();
@@ -13,7 +13,6 @@ class GetDataScreen extends StatefulWidget {
 class _GetDataScreenState extends State<GetDataScreen> {
   final String url = "https://reqres.in/api/users?page=2";
   List? data;
-
   @override
   void initState() {
     _getRefreshData();
@@ -29,18 +28,18 @@ class _GetDataScreenState extends State<GetDataScreen> {
         await http.get(Uri.parse(url), headers: {"Accept": "application/json"});
     print(response.body);
     setState(() {
-      var converDataToJson = jsonDecode(response.body);
-      data = converDataToJson['data'];
+      var convertDataToJson = jsonDecode(response.body);
+      data = convertDataToJson['data'];
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Get data api reqres'),
-      ),
-      body: RefreshIndicator(
+        appBar: AppBar(
+          title: Text("Get data api regres"),
+        ),
+        body: RefreshIndicator(
           onRefresh: _getRefreshData,
           child: data == null
               ? Center(child: CircularProgressIndicator())
@@ -56,16 +55,15 @@ class _GetDataScreenState extends State<GetDataScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => GetDetailDataScreen(
+                                    builder: (context) => GetDataDetailScreen(
                                         value: data![index]["id"])),
                               );
-                              print(data![index]["id"]);
                             },
                             child: Padding(
                               padding: EdgeInsets.all(16.0),
                               child: Row(
                                 children: [
-                                  ClipRRect(
+                                  ClipRect(
                                     child: Image.network(
                                       data![index]["avatar"],
                                       height: 80,
@@ -89,7 +87,7 @@ class _GetDataScreenState extends State<GetDataScreen> {
                         ],
                       ),
                     );
-                  })),
-    );
+                  }),
+        ));
   }
 }
