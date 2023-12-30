@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sanberappflutter/Latihan/Latihan-1/get_data_screen.dart';
+import 'package:get/get.dart';
+import 'package:sanberappflutter/Latihan/Latihan-2/routes/page_routes.dart';
+import 'package:sanberappflutter/Latihan/Latihan-2/pages/page_1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +13,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const GetDataScreenStateManagement(),
+      home: const PageOne(),
+      getPages: pageRouteApp.pages,
     );
   }
 }
